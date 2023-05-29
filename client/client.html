@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("../images/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            position: fixed;
+            margin: 5px 10px;
+            margin-left: 10px;
+            margin-top: -96px;
+            width: 200px;
+            height: auto;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            background-color: #096ea8cb;
+            padding: 20px;
+        }
+
+        a {
+            display: block;
+            color: #fff;
+            font-size: 19px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            margin-bottom: -80px;
+            margin-top: 100px;
+        }
+
+        a:hover {
+            color: rgb(255, 255, 255);
+            color: black;
+            opacity: 1.5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a.delete-account {
+            color: #fff;
+            background-color: #ff0000;
+            border-radius: 5px;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            margin-top: 150px;
+        }
+
+        a.delete-account:hover {
+            background-color: #000000;
+        }
+
+        .notification {
+            position: relative;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            height: auto;
+            border-radius: 10000px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-left: 1290px;
+            cursor: pointer;
+        }
+
+        .notification img {
+            display: block;
+            width: 100px;
+            height: auto;
+            border-radius: 10000px;
+        }
+
+        .notification:hover img {
+            filter: brightness(120%) saturate(150%);
+        }
+
+        .notification-count {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            width: 300px;
+            height: auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1;
+            overflow: auto;
+        }
+
+        .notification-dropdown-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .notification-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .contact-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            background-color: #096ea8cb;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .home-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #fff;
+            width: 100px;
+            height: auto;
+            border-radius: 1000px;
+            margin-left: 45px;
+        }
+
+        .home-icon:hover {
+            filter: brightness(70%) saturate(50%);
+        }
+
+        .balance {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+            margin-left: 250px;
+            margin-top: -80px;
+            width: 980px;
+        }
+
+        .balance h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .balance p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .balance strong {
+            font-size: 32px;
+            color: #096ea8cb;
+        }
+
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .content ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* newstyles for transactionlists */
+        .transaction-list {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            overflow: hidden;
+            margin-left: 10px;
+        }
+
+        .transaction-list h3 {
+            background-color: #096ea8cb;
+            color: #fff;
+            font-size: 20px;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .transaction-list ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .transaction-list li {
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .transaction-list li:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-list .date {
+            font-size: 16px;
+        }
+
+        .transaction-list .amount {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* new styles for credit card points list and balance */
+        .points-list {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            overflow: hidden;
+            margin-left: 10px;
+        }
+
+        .points-list h3 {
+            background-color: #ff7f50;
+            color: #fff;
+            font-size: 20px;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .points-list ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .points-list li {
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .points-list li:last-child {
+            border-bottom: none;
+        }
+
+        .points-list .date {
+            font-size: 16px;
+        }
+
+        .points-list .amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff7f50;
+        }
+
+        .points-balance {
+            background-color: #ff7f50;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .points-balance h3 {
+            background-color: #fff;
+            color: #ff7f50;
+            font-size: 20px;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .points-balance ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .points-balance li {
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .points-balance li:last-child {
+            border-bottom: none;
+        }
+
+        .points-balance .date {
+            font-size: 16px;
+        }
+
+        .points-balance .amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff7f50;
+        }
+
+        /* new styles for point balance */
+        .points-balance .total-balance {
+            text-align: right;
+            font-size: 20px;
+            padding: 10px;
+            color: #fff;
+        }
+
+        .points-balance .total-balance strong {
+            font-size: 28px;
+        }
+
+        .redeem-points-button {
+            background-color: #ff7f50;
+            border-radius: 10px;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .redeem-points-button:hover {
+            background-color: green;
+        }
+
+        .logout {
+            background-color: white;
+            color: rgb(67, 127, 206);
+            border-color: rgb(67, 127, 206);
+            border-style: solid;
+            cursor: pointer;
+            float: right;
+            margin-right: 20px;
+            width: 110px;
+            height: 30px;
+            margin-top: -30px;
+        }
+
+        .logout:hover {
+            background-color: #096ea8cb;
+            color: white;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const notificationIcon = document.querySelector(".notification");
+            const notificationDropdown = document.querySelector(".notification-dropdown");
+            const notificationCount = document.querySelector(".notification-count");
+            notificationCount.textContent = "3";
+
+            const notifications = [
+                {
+                    title: "Credit card deactivated",
+                    message: "Your credit card XXXX-XXXX-1924 has been deactivated."
+                },
+                {
+                    title: "New Announcement",
+                    message: "You can now report any issues by clicking on the &quot;REPORT ISSUES WITH THE SYSTEM&quot; button on the navigation bar."
+                },
+                {
+                    title: "Reminder",
+                    message: "Pay your Phone Bill before 23/03/2024",
+                }
+            ];
+
+            function showNotifications() {
+                notificationDropdown.innerHTML = "";
+
+                notifications.forEach(notification => {
+                    const item = document.createElement("div");
+                    item.classList.add("notification-dropdown-item");
+                    item.innerHTML = `<h4>${notification.title}</h4> <p>${notification.message}</p>`;
+                    notificationDropdown.appendChild(item);
+                });
+
+                // Update the notification count
+                const notificationCount = document.querySelector(".notification-count");
+                notificationCount.textContent = notifications.length;
+
+                // Show the dropdown
+                notificationDropdown.style.display = "block";
+            }
+
+            // Function to hide the notification dropdown
+            function hideNotifications() {
+                notificationDropdown.style.display = "none";
+            }
+
+            // Add a click event listener to the notification icon
+            notificationIcon.addEventListener("click", function () {
+                // If the dropdown is already displayed, hide it
+                if (notificationDropdown.style.display === "block") {
+                    hideNotifications();
+                } else {
+                    // Otherwise, show the dropdown
+                    showNotifications();
+                }
+            });
+
+            // Add a click event listener to the document, so that clicking anywhere outside the dropdown will hide it
+            document.addEventListener("click", function (event) {
+                if (!notificationIcon.contains(event.target) && !notificationDropdown.contains(event.target)) {
+                    hideNotifications();
+                }
+            });
+        });
+
+        function redeemPoints() {
+            var pointsElement = document.getElementById("points");
+            var totalPointsElement = document.getElementById("totalPoints");
+            var balanceElement = document.querySelector(".balance strong");
+
+            var currentBalance = parseInt(balanceElement.textContent.slice(1)); // Get the current balance value
+            var redeemedPoints = 200;
+            var newBalance = currentBalance + redeemedPoints;
+
+            balanceElement.textContent = "$" + newBalance; // Update the balance in the DOM
+
+            pointsElement.innerHTML = "0 points";
+            totalPointsElement.innerHTML = "Total Points: 0 points";
+
+            alert("Congratulations! You have redeemed 200 points.");
+        }
+
+
+        function confirmDelete() {
+            if (confirm("Are you sure you want to delete your account?")) {
+                window.location.href = "../home.html";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="notification"> <img src="../images/notification.png" alt="Notification"> <span
+            class="notification-count">3</span>
+        <div class="notification-dropdown"></div> <!-- Added a notification dropdown div -->
+    </div>
+    <button class=logout>
+        Log out
+         </button>
+    <div class="contact-info">
+        <p>Hello, Nada!</p>
+    </div>
+    <nav>
+        <a href="applyForCreditCard.html">Apply for a credit card</a>
+        <a href="applyForLoan.html">Apply for a loan</a>
+        <a href="setReminders.html">Set Reminders</a>
+        <a href="transferMoney.html">Transfer money</a>
+        <a href="reportIssuesWithTheSystem.html">Report issues with the system</a>
+        <a href="payBills.html">Pay Bills</a>
+        <a href="creditCardReplacement.html">Problem with your credit card? Request a replacement</a>
+        <a href="#" class="delete-account" onclick="confirmDelete()">Delete Account</a>
+        <img src=" ../images/homeIcon.jpg" alt="home icon" class="home-icon" onclick="location.href='client.html'">
+    </nav>
+    <img src="../images/logo.png" alt="Logo" class="logo">
+    <main>
+        <div class="balance">
+            <h2>Current Balance</h2>
+            <p>Your current balance is:</p> <strong>$5000</strong>
+        </div>
+        <div class="content">
+            <div class="transaction-list">
+                <h3>Bank Account Transactions</h3>
+                <ul>
+                    <li>
+                        <div class="date">May 27, 2023</div>
+                        <div class="amount">+$1000</div>
+                    </li>
+                    <li>
+                        <div class="date">May 25, 2023</div>
+                        <div class="amount">-$500</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="transaction-list" style="margin-top: 20px;">
+                <h3>Credit Card Transactions</h3>
+                <ul>
+                    <li>
+                        <div class="date">May 28, 2023</div>
+                        <div class="amount">+$150</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="points-list">
+                <h3>Credit Card Points</h3>
+                <ul>
+                    <li>
+                        <div class="date">May 24, 2023</div>
+                        <div class="header-right">
+                            <div class="header-item total-points">
+                                <span class="amount" id="points">+200 points</span>
+                                <button class="redeem-points-button" onclick="redeemPoints()">Redeem Points</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="total-balance">
+                        <div class="date">Total Points</div>
+                        <div class="amount" id="totalPoints"><strong>Total Points: 200 points</strong></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
