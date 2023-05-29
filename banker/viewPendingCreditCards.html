@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Pending Credit Cards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("../images/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            position: absolute;
+            margin: 5px 10px;
+            margin-left: 10px;
+            margin-top: -295px;
+            width: 200px;
+            height: auto;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            background-color: #096ea8cb;
+            padding: 20px;
+        }
+
+        a {
+            display: block;
+            color: #fff;
+            font-size: 19px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            margin-bottom: -80px;
+            margin-top: 100px;
+        }
+
+        a:hover {
+            color: rgb(0, 0, 0);
+            transition: background-color0.3s ease;
+        }
+
+        .contact-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 110px;
+            background-color: #096ea8cb;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .creditCards-section {
+            margin: 10px auto 0 auto;
+            margin-left: 250px;
+            width: 60%;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #096ea8cb;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .creditCard-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .creditCard-actions button {
+            border: none;
+            background-color: #096ea8cb;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .creditCard-actions button:hover {
+            filter: brightness(110%);
+        }
+
+        .creditCard-actions button:hover.accept {
+            background-color: green;
+            color: #fff;
+        }
+
+        .creditCard-actions button:hover.reject {
+            background-color: red;
+            color: #fff;
+        }
+
+        .home-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #fff;
+            width: 100px;
+            height: auto;
+            border-radius: 1000px;
+            margin-left: 45px;
+        }
+
+        .home-icon:hover {
+            filter: brightness(70%) saturate(50%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contact-info">
+        <p>Hello, Banker!</p>
+    </div>
+
+    <nav>
+        <a href="viewPendingLoans.html">View pending loans</a>
+        <a style="color: black" href="viewPendingCreditCards.html">View pending credit cards</a>
+        <a href="monitorTransactions.html">Monitor transactions</a>
+        <a href="viewCreditCardIssues.html">View credit card issues</a>
+        <img src="../images/homeIcon.jpg" alt="home icon" class="home-icon" onclick="location.href='banker.html'">
+    </nav>
+
+    <div class="creditCards-section">
+        <h2>Credit Cards</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Client ID</th>
+                    <th>Card Type</th>
+                    <th>Supports Points</th>
+                    <th>Date Requested</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>MasterCard</td>
+                    <td>No</td>
+                    <td>2023-05-15</td>
+                    <td class="creditCard-actions">
+                        <button class="accept">Accept</button>
+                        <button class="reject">Reject</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Visa</td>
+                    <td>Yes</td>
+                    <td>2023-01-30</td>
+                    <td class="creditCard-actions">
+                        <button class="accept">Accept</button>
+                        <button class="reject">Reject</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>American Express</td>
+                    <td>No</td>
+                    <td>2023-04-22</td>
+                    <td class="creditCard-actions">
+                        <button class="accept">Accept</button>
+                        <button class="reject">Reject</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <img src="../images/logo.png" alt="Logo" class="logo">
+
+</body>
+
+</html>

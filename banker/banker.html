@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Banker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("../images/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            position: absolute;
+            margin: 5px 10px;
+            margin-left: 10px;
+            width: 200px;
+            height: auto;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            background-color: #096ea8cb;
+            padding: 20px;
+        }
+
+        a {
+            display: block;
+            color: #fff;
+            font-size: 19px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            margin-bottom: -80px;
+            margin-top: 100px;
+        }
+
+        a:hover {
+            color: rgb(0, 0, 0);
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 110px;
+            background-color: #096ea8cb;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .home-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #fff;
+            width: 100px;
+            height: auto;
+            border-radius: 1000px;
+            margin-left: 45px;
+        }
+
+        .home-icon:hover {
+            filter: brightness(70%) saturate(50%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contact-info">
+        <p>Hello, Banker!</p>
+    </div>
+    <nav>
+        <a href="viewPendingLoans.html">View pending loans</a>
+        <a href="viewPendingCreditCards.html">View pending credit cards</a>
+        <a href="monitorTransactions.html">Monitor transactions</a>
+        <a href="viewCreditCardIssues.html">View credit card issues</a>
+        <img src="../images/homeIcon.jpg" alt="home icon" class="home-icon" onclick="location.href='banker.html'">
+    </nav>
+    <img src="../images/logo.png" alt="Logo" class="logo">
+</body>
+
+</html>
