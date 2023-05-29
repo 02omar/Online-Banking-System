@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Set Reminders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("../images/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            position: absolute;
+            margin: 5px 10px;
+            margin-left: 10px;
+            margin-top: -96px;
+            width: 200px;
+            height: auto;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            background-color: #096ea8cb;
+            padding: 20px;
+        }
+
+        a {
+            display: block;
+            color: #fff;
+            font-size: 19px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            margin-bottom: -80px;
+            margin-top: 100px;
+        }
+
+        a:hover {
+            color: rgb(0, 0, 0);
+            transition: background-color 0.3s ease;
+        }
+
+        a.delete-account {
+            color: #fff;
+            background-color: #ff0000;
+            border-radius: 5px;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            margin-top: 150px;
+        }
+
+        a.delete-account:hover {
+            background-color: #000000;
+        }
+
+        .notification {
+            position: relative;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            height: auto;
+            border-radius: 10000px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-left: 1300px;
+            cursor: pointer;
+        }
+
+        .notification img {
+            display: block;
+            width: 100px;
+            height: auto;
+            border-radius: 10000px;
+        }
+
+        .notification:hover img {
+            filter: brightness(120%) saturate(150%);
+        }
+
+        .notification-count {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .notification-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            width: 300px;
+            height: auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1;
+            overflow: auto;
+        }
+
+        .notification-dropdown-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .notification-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .contact-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            background-color: #096ea8cb;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .home-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #fff;
+            width: 100px;
+            height: auto;
+            border-radius: 1000px;
+            margin-left: 45px;
+        }
+
+        .home-icon:hover {
+            filter: brightness(70%) saturate(50%);
+        }
+
+        .success-message {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #00cc00;
+            color: #fff;
+            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .show-message {
+            opacity: 1;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        th,
+        td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        th {
+            background-color: #096ea8cb;
+        }
+
+        td:hover {
+            background-color: #b8b8b8;
+            cursor: pointer;
+        }
+
+        .event {
+            background-color: #096ea8cb;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .logout {
+            background-color: white;
+            color: rgb(67, 127, 206);
+            border-color: rgb(67, 127, 206);
+            border-style: solid;
+            cursor: pointer;
+            float: right;
+            margin-right: 20px;
+            width: 110px;
+            height: 30px;
+            margin-top: -30px;
+        }
+
+        .logout:hover {
+            background-color: #096ea8cb;
+            color: white;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const eventModal = document.getElementById("event-modal");
+            const eventTitleInput = document.getElementById("event-title");
+            const eventDateInput = document.getElementById("event-date");
+
+            function showEventModal(date) {
+                eventModal.style.display = "block";
+                eventTitleInput.value = "";
+                eventDateInput.value = date;
+            }
+
+            function hideEventModal() {
+                eventModal.style.display = "none";
+            }
+
+            const cells = document.querySelectorAll("td");
+            cells.forEach(cell => {
+                cell.addEventListener("click", function () {
+                    const date = this.textContent;
+                    if (date !== "") {
+                        showEventModal(date);
+                    }
+                });
+            });
+
+            const form = document.querySelector("form");
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                const title = eventTitleInput.value;
+                const date = eventDateInput.value;
+                if (title !== "" && date !== "") {
+                    const cell = document.querySelector(`td:nth-child(${date})`);
+                    const eventDiv = document.createElement("div");
+                    eventDiv.textContent = title;
+                    eventDiv.classList.add("event");
+                    cell.appendChild(eventDiv);
+                    hideEventModal();
+                }
+            });
+
+            const notificationIcon = document.querySelector(".notification");
+            const notificationDropdown = document.querySelector(".notification-dropdown");
+            const notificationCount = document.querySelector(".notification-count");
+            notificationCount.textContent = "3";
+
+            const notifications = [
+                {
+                    title: "Credit card deactivated",
+                    message: "Your credit card XXXX-XXXX-1924 has been deactivated."
+                },
+                {
+                    title: "New Announcement",
+                    message: "You can now report any issues by clicking on the &quot;REPORT ISSUES WITH THE SYSTEM&quot; button on the navigation bar."
+                },
+                {
+                    title: "Reminder",
+                    message: "Pay your Phone Bill before 23/03/2024",
+                }
+            ];
+
+            document.querySelector("form").addEventListener("submit", function (event) {
+                event.preventDefault();
+                // Display the success message for 3 seconds
+                const successMessage = document.querySelector(".success-message");
+                successMessage.classList.add("show-message");
+                setTimeout(function () {
+                    successMessage.classList.remove("show-message");
+                }, 3000);
+            });
+
+            function showNotifications() {
+                notificationDropdown.innerHTML = "";
+
+                notifications.forEach(notification => {
+                    const item = document.createElement("div");
+                    item.classList.add("notification-dropdown-item");
+                    item.innerHTML = `<h4>${notification.title}</h4> <p>${notification.message}</p>`;
+                    notificationDropdown.appendChild(item);
+                });
+
+                // Update the notification count
+                const notificationCount = document.querySelector(".notification-count");
+                notificationCount.textContent = notifications.length;
+
+                // Show the dropdown
+                notificationDropdown.style.display = "block";
+            }
+
+            // Function to hide the notification dropdown
+            function hideNotifications() {
+                notificationDropdown.style.display = "none";
+            }
+
+            // Add a click event listener to the notification icon
+            notificationIcon.addEventListener("click", function () {
+                // If the dropdown is already displayed, hide it
+                if (notificationDropdown.style.display === "block") {
+                    hideNotifications();
+                } else {
+                    // Otherwise, show the dropdown
+                    showNotifications();
+                }
+            });
+
+            // Add a click event listener to the document, so that clicking anywhere outside the dropdown will hide it
+            document.addEventListener("click", function (event) {
+                if (!notificationIcon.contains(event.target) && !notificationDropdown.contains(event.target)) {
+                    hideNotifications();
+                }
+            });
+
+        });
+
+        function confirmDelete() {
+            if (confirm("Are you sure you want to delete your account?")) {
+                window.location.href = "../home.html";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="notification">
+        <img src="../images/notification.png" alt="Notification">
+        <span class="notification-count">3</span>
+        <div class="notification-dropdown"></div> <!-- Added a notification dropdown div -->
+    </div>
+    <button class=logout>
+        Log out
+         </button>
+    <div class="contact-info">
+        <p>Hello, Client!</p>
+    </div>
+    <nav>
+        <a href="applyForCreditCard.html">Apply for a credit card</a>
+        <a href="applyForLoan.html">Apply for a loan</a>
+        <a style="color: black" href="setReminders.html">Set Reminders</a>
+        <a href="transferMoney.html">Transfer money</a>
+        <a href="reportIssuesWithTheSystem.html">Report issues with the system</a>
+        <a href="payBills.html">Pay Bills</a>
+        <a href="creditCardReplacement.html">Problem with your credit card? Request a replacement</a>
+        <a href="#" class="delete-account" onclick="confirmDelete()">Delete Account</a>
+        <img src="../images/homeIcon.jpg" alt="home icon" class="home-icon" onclick="location.href='client.html'">
+    </nav>
+    <img src="../images/logo.png" alt="Logo" class="logo">
+
+    <h1>Calendar</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>1</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>18</td>
+                <td>19</td>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>25</td>
+                <td>26</td>
+                <td>27</td>
+                <td>28</td>
+                <td>29</td>
+                <td>30</td>
+            </tr>
+            <tr>
+                <td>31</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="event-modal" style="display: none; margin-left: 600px;">
+        <h2>Add Event</h2>
+        <form>
+            <label for="event-title">Type of Payment:</label>
+            <select id="creditCardType" name="Credit Card Type" class="dropdown">
+                <option value="Gas Bill">Gas Bill</option>
+                <option value="Electricity Bill">Electricity Bill</option>
+                <option value="Water Bill">Water Bill</option>
+                <option value="Telephone Bill">Telephone Bill</option>
+            </select>
+            <br>
+            <br>
+            <button type="submit">Add</button>
+            <button type="button" onclick="location.href='setReminders.html'">Cancel</button>
+        </form>
+    </div>
+
+    <div class="success-message">
+        Date set!
+    </div>
+</body>
+
+</html>
