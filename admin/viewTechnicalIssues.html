@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Technical Issues</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("../images/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            position: absolute;
+            margin: 5px 10px;
+            margin-left: 10px;
+            margin-top: -295px;
+            width: 200px;
+            height: auto;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            background-color: #096ea8cb;
+            padding: 20px;
+        }
+
+        a {
+            display: block;
+            color: #fff;
+            font-size: 19px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            margin-bottom: -80px;
+            margin-top: 100px;
+        }
+
+        a:hover {
+            color: rgb(0, 0, 0);
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            background-color: #096ea8cb;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .home-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #fff;
+            width: 100px;
+            height: auto;
+            border-radius: 1000px;
+            margin-left: 45px;
+        }
+
+        .home-icon:hover {
+            filter: brightness(70%) saturate(50%);
+        }
+
+        .technicalIssues-section {
+            margin: 10px auto 0 auto;
+            margin-left: 250px;
+            width: 60%;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #096ea8cb;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .technicalIssues-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .technicalIssues-actions button {
+            border: none;
+            background-color: #096ea8cb;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .technicalIssues-actions button:hover {
+            filter: brightness(110%);
+        }
+
+        .technicalIssues-actions button:hover.resolve {
+            background-color: green;
+            color: #fff;
+        }
+    </style>
+
+    <script>
+        function resolveIssue() {
+            // Display the success message
+            var successMessage = document.createElement("div");
+            successMessage.innerHTML = "Issue resolved!";
+            successMessage.style.position = "fixed";
+            successMessage.style.top = "50%";
+            successMessage.style.left = "50%";
+            successMessage.style.width = "200px";
+            successMessage.style.height = "30px";
+            successMessage.style.fontSize = "25px"
+            successMessage.style.textAlign = "center";
+            successMessage.style.transform = "translate(-50%, -50%)";
+            successMessage.style.backgroundColor = "#00cc00";
+            successMessage.style.color = "#fff";
+            successMessage.style.padding = "10px";
+            successMessage.style.borderRadius = "5px";
+            successMessage.style.opacity = "0";
+            successMessage.style.transition = "opacity 0.3s ease";
+            document.body.appendChild(successMessage);
+            setTimeout(function () {
+                successMessage.style.opacity = "1";
+            }, 100);
+            setTimeout(function () {
+                successMessage.style.opacity = "0";
+                setTimeout(function () {
+                    document.body.removeChild(successMessage);
+                }, 300);
+            }, 3000);
+
+            // Redirect to admin.html
+            setTimeout(function () {
+                window.location.href = "admin.html";
+            }, 3500);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="contact-info">
+        <p>Hello, Admin!</p>
+    </div>
+    <nav>
+        <a href="blockClients.html">Block client's account</a>
+        <a href="blockTransaction.html">Block transaction</a>
+        <a href="sendNotifications.html">Send notifications and announcements</a>
+        <a style="color: black" href="viewTechnicalIssues.html">View technical issues</a>
+        <img src="../images/homeIcon.jpg" alt="home icon" class="home-icon" onclick="location.href='admin.html'">
+    </nav>
+
+    <div class="technicalIssues-section">
+        <h2>Technical Issues</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Issue Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Website not scaled to all devices.</td>
+                    <td>2023-05-15</td>
+                    <td class="technicalIssues-actions">
+                        <button class="resolve" onclick="resolveIssue()">Resolve</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Slow page load time</td>
+                    <td>2023-01-30</td>
+                    <td class="technicalIssues-actions">
+                        <button class="resolve" onclick="resolveIssue()">Resolve</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Low quality images</td>
+                    <td>2023-04-22</td>
+                    <td class="technicalIssues-actions">
+                        <button class="resolve" onclick="resolveIssue()">Resolve</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <img src="../images/logo.png" alt="Logo" class="logo">
+</body>
+
+</html>
