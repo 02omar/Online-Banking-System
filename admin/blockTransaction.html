@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Block Transaction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("../images/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            position: absolute;
+            margin: 5px 10px;
+            margin-left: 10px;
+            width: 200px;
+            height: auto;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            background-color: #096ea8cb;
+            padding: 20px;
+        }
+
+        a {
+            display: block;
+            color: #fff;
+            font-size: 19px;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            margin-bottom: -80px;
+            margin-top: 100px;
+        }
+
+        a:hover {
+            color: rgb(0, 0, 0);
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            background-color: #096ea8cb;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .home-icon {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #fff;
+            width: 100px;
+            height: auto;
+            border-radius: 1000px;
+            margin-left: 45px;
+        }
+
+        .home-icon:hover {
+            filter: brightness(70%) saturate(50%);
+        }
+
+        /* CSS for the new section */
+        .block-section {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .block-section input[type="text"] {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .block-section input[type="submit"]:disabled {
+            background-color: #ff0000;
+            color: #fff;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: not-allowed;
+            transition: background-color 0.3s ease;
+        }
+
+        .block-section input[type="submit"]:not(:disabled) {
+            background-color: green;
+            color: #fff;
+            font-size: 18px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .block-section input[type="submit"]:not(:disabled):hover {
+            background-color: rgb(0, 0, 0);
+        }
+
+        .success-message {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #00cc00;
+            color: #fff;
+            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .show-message {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contact-info">
+        <p>Hello, Admin!</p>
+    </div>
+
+    <nav>
+        <a href="blockClients.html">Block client's account</a>
+        <a style="color: black" href="blockTransaction.html">Block transaction</a>
+        <a href="sendNotifications.html">Send notifications and announcements</a>
+        <a href="viewTechnicalIssues.html">View technical issues</a>
+        <img src="../images/homeIcon.jpg" alt="home icon" class="home-icon" onclick="location.href='admin.html'">
+    </nav>
+
+    <img src="../images/logo.png" alt="Logo" class="logo">
+
+    <div class="block-section">
+        <h2 style="margin-right: 70px;">Block Transaction</h2>
+        <form>
+            <input type="text" id="transactionID" name="iban" placeholder="Enter transaction ID">
+            <br>
+            <input type="submit" id="block-btn" value="Block Transaction" disabled>
+        </form>
+    </div>
+
+    <div class="success-message">
+        Transaction blocked successfully!
+    </div>
+
+    <script>
+        const transactionIDInput = document.getElementById('transactionID');
+        const blockBtn = document.getElementById('block-btn');
+        const successMsg = document.querySelector('.success-message');
+
+        transactionIDInput.addEventListener('input', () => {
+            if (transactionIDInput.value.trim() !== '') {
+                blockBtn.disabled = false;
+            } else {
+                blockBtn.disabled = true;
+            }
+        });
+
+        blockBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            successMsg.classList.add('show-message');
+            setTimeout(() => {
+                successMsg.classList.remove('show-message');
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
