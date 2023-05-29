@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        /* Styling for the navigation bar */
+        nav {
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        nav a {
+            margin-left: 800px;
+            margin-top: 10px;
+            color: black;
+            background-color: rgb(45, 255, 220);
+            font-size: 20px;
+            padding: 14px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 40px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #00b318;
+            color: black;
+        }
+
+        .register {
+            margin-left: 0px;
+            background-color: #ff0000;
+            color: white;
+            border-radius: 40px;
+        }
+
+        .register:hover {
+            background-color: #00b318;
+            color: rgb(255, 255, 255);
+            transition: background-color 0.3s ease;
+        }
+
+        .logo {
+            float: left;
+            margin: 5px 10px;
+            margin-left: 110px;
+            width: 200px;
+            height: auto;
+        }
+
+        /* Styling for the main content */
+        body {
+            background-image: url("images/homeBackground.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-top: 70px;
+            text-align: center;
+        }
+
+        .main-content {
+            margin-top: 260px;
+            margin-right: 800px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        p {
+            color: #666;
+            font-size: 50px;
+            margin-top: -40px;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 30px;
+            margin-right: 1170px;
+            background-color: #ff0000;
+            border: none;
+            color: white;
+            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 40px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00b318;
+            color: rgb(255, 255, 255);
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <img class="logo" src="images/logo.png" alt="Logo">
+        <a href="login.html">تسجيل دخول</a>
+        <a class="register" href="register.html">افتح حسابا</a>
+    </nav>
+
+    <div class="main-content">
+        <p>انشىء حسابك في اقل من دقيقة</p>
+        <p1 style="color: #666; font-size: 20px; margin-left: -30px;">تبعد نقرة واحدة فقط عن تأسيس حسابك البنكي
+        </p1>
+    </div>
+    <button onclick="location.href='register.html';">افتح حسابا</button>
+</body>
+
+</html>
